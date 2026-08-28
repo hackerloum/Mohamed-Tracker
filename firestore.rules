@@ -1,0 +1,40 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return signedIn()
+        && request.auth.token.owner == true
+        && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId)
+        && request.resource.data.userId == userId
+        && request.resource.data.currency == "TZS";
+      allow delete: if isOwner(userId);
+
+      // Owner-scoped subcollections: habits, habitEntries, days, tasks, notes,
+      // activities, transactions, categories, paymentMethods, budgets,
+      // studySessions, studySubjects, workouts, prayerEntries, goals,
+      // reflections, sleep, checkins, devices, notifications, reminderJobs.
+      // App Check is not enforced here; owner claim + uid match is the gate.
+      match /{collection}/{docId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && request.resource.data.userId == userId;
+        allow delete: if isOwner(userId)
+          && resource.data.userId == userId;
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
