@@ -148,7 +148,7 @@ export function StudyTimerPage() {
           </Field>
           {error ? <p className="text-sm text-danger">{error}</p> : null}
           <Button onClick={() => void save()} disabled={busy || !draft}>
-            {busy ? "Savingâ€¦" : "Save session"}
+            {busy ? "Saving…" : "Save session"}
           </Button>
         </div>
       </Sheet>

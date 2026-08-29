@@ -1,7 +1,6 @@
 "use client";
 
 import type { Task } from "@/core/types";
-import { EmptyState } from "@/components/ui/EmptyState";
 
 export function PriorityList({
   tasks,
@@ -12,31 +11,32 @@ export function PriorityList({
 }) {
   return (
     <section>
-      <p className="text-[11px] tracking-[0.18em] text-mute uppercase">Priorities</p>
+      <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">
+        Priorities
+      </p>
       {tasks.length === 0 ? (
-        <EmptyState
-          title="No priorities yet"
-          body="Open Plan my day to choose up to three."
-        />
+        <p className="mt-3 text-[15px] text-ink-muted">No top three yet.</p>
       ) : (
-        <ul className="mt-2">
-          {tasks.map((task) => (
+        <ol className="mt-1">
+          {tasks.map((task, index) => (
             <li key={task.id}>
               <button
                 type="button"
                 onClick={() => onToggle(task)}
-                className="flex w-full items-center justify-between border-t border-hairline py-3 text-left"
+                className="flex w-full items-baseline gap-4 border-t border-hairline py-3.5 text-left active:opacity-70"
               >
-                <span className={task.completed ? "text-mute line-through" : "text-ivory"}>
+                <span className="tabular w-4 text-[13px] text-accent">{index + 1}</span>
+                <span
+                  className={`flex-1 text-[17px] ${
+                    task.completed ? "text-ink-muted line-through decoration-hairline" : "text-ink"
+                  }`}
+                >
                   {task.title}
-                </span>
-                <span className="text-[11px] tracking-wide text-bronze uppercase">
-                  {task.completed ? "Done" : "Open"}
                 </span>
               </button>
             </li>
           ))}
-        </ul>
+        </ol>
       )}
     </section>
   );

@@ -92,10 +92,10 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
   if (status === "loading") {
     return (
-      <div className="flex min-h-dvh items-end bg-bg px-6 pb-16">
+      <div className="flex min-h-dvh items-end bg-bg px-6 pb-20">
         <div>
-          <p className="text-sm uppercase tracking-[0.2em] text-ink-muted">Mohamed</p>
-          <div className="accent-rule mt-3 w-16" />
+          <p className="text-[12px] font-medium uppercase tracking-[0.28em] text-ink-muted">Mohamed</p>
+          <div className="mt-3 h-px w-12 bg-accent" />
         </div>
       </div>
     );
@@ -104,10 +104,14 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   if (status === "unauthorized") {
     return (
       <div className="mx-auto flex min-h-dvh max-w-md flex-col justify-end px-6 pb-16">
-        <p className="text-sm uppercase tracking-[0.18em] text-ink-muted">Restricted</p>
-        <h1 className="mt-3 text-3xl leading-tight text-ink">This account is not authorized.</h1>
-        <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-          Sign in with the owner Google account, then run the owner-claim script with your UID.
+        <p className="text-[12px] font-medium uppercase tracking-[0.22em] text-ink-muted">
+          Restricted
+        </p>
+        <h1 className="mt-3 text-[34px] leading-tight tracking-tight text-ink">
+          This account can’t open the app.
+        </h1>
+        <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">
+          Use the owner Google account. If that’s you, set the owner claim and sign in again.
         </p>
         <div className="mt-8">
           <Button variant="ghost" onClick={() => void signOut()}>

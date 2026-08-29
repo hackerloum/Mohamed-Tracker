@@ -5,13 +5,14 @@ import { formatInTimeZone } from "date-fns-tz";
 import { computeDailyScore } from "@/core/engines/dailyScore";
 import { nextAction, type NextAction } from "@/core/engines/nextAction";
 import { localHourFrom } from "@/core/dates/localDate";
-import { CANONICAL_PRAYERS, type HabitEntry, type PrayerKey } from "@/core/types";
+import { CANONICAL_PRAYERS, EXTRA_PRAYERS, type HabitEntry, type PrayerKey } from "@/core/types";
 import { DayDial } from "@/components/today/DayDial";
 import { HabitRow } from "@/components/today/HabitRow";
 import { PrayerStrip } from "@/components/today/PrayerStrip";
 import { PriorityList } from "@/components/today/PriorityList";
 import { UpNext } from "@/components/today/UpNext";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { Screen } from "@/components/ui/Screen";
 import { PlanMyDaySheet } from "@/features/today/PlanMyDaySheet";
 import { PrayerDetailSheet } from "@/features/today/PrayerDetailSheet";
 import { useTodayData } from "@/hooks/useTodayData";
@@ -169,57 +170,84 @@ export function TodayScreen(props: { userId?: string }) {
 
   const now = new Date();
   const weekday = formatInTimeZone(now, data.timezone, "EEEE");
-  const dateLabel = formatInTimeZone(now, data.timezone, "d MMM");
+  const dateLabel = formatInTimeZone(now, data.timezone, "d MMMM");
+  const hour = localHourFrom(now, data.timezone);
+  const greeting =
+    hour < 5 ? "Still up" : hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : hour < 21 ? "Good evening" : "Good night";
+
+  const habitDone = data.habits.filter((habit) => entriesByHabit.get(habit.id)?.completed).length;
+  const extrasOn = Boolean(data.profile?.prayer?.extrasEnabled ?? data.profile?.prayerExtras);
+  const prayerKeys = extrasOn
+    ? [...CANONICAL_PRAYERS, ...EXTRA_PRAYERS]
+    : [...CANONICAL_PRAYERS];
+  const prayerTotal = prayerKeys.length;
+  const prayerDone = prayerKeys.filter((key) => completedPrayers.has(key)).length;
+  const priorityDone = priorities.filter((task) => task.completed).length;
+  const completed = habitDone + prayerDone + priorityDone;
+  const total = data.habits.length + prayerTotal + priorities.length;
 
   if (data.error) {
     return (
-      <EmptyState title="Could not load today" body={data.error} />
+      <Screen>
+        <EmptyState title="Could not load today" body={data.error} />
+      </Screen>
     );
   }
 
   return (
-    <div className="flex flex-col gap-10">
-      <header className="flex items-baseline justify-between">
-        <p className="text-[11px] tracking-[0.22em] text-bronze uppercase">Today</p>
-        <button type="button" onClick={openPlan} className="text-sm text-mute">
-          Plan my day
-        </button>
-      </header>
+    <Screen>
+      <div className="flex flex-col gap-11">
+        <div className="flex items-center justify-end">
+          <button
+            type="button"
+            onClick={openPlan}
+            className="text-[14px] text-accent active:opacity-70"
+          >
+            Plan my day
+          </button>
+        </div>
 
-      <DayDial score={score.score} dateLabel={dateLabel} weekday={weekday} />
+        <DayDial
+          score={score.score}
+          dateLabel={dateLabel}
+          weekday={weekday}
+          greeting={greeting}
+          completed={completed}
+          total={total}
+        />
 
-      <PrayerStrip
-        completedKeys={completedPrayers}
-        extrasEnabled={Boolean(data.profile?.prayer.extrasEnabled)}
-        onTap={(key) => void tapPrayer(key)}
-        onLongPress={openPrayerDetail}
-      />
+        <UpNext action={action} onAct={(item) => void handleUpNext(item)} />
 
-      <UpNext action={action} onAct={(item) => void handleUpNext(item)} />
+        <PrayerStrip
+          completedKeys={completedPrayers}
+          extrasEnabled={extrasOn}
+          onTap={(key) => void tapPrayer(key)}
+          onLongPress={openPrayerDetail}
+        />
 
-      <PriorityList
-        tasks={priorities}
-        onToggle={(task) => void toggleTaskComplete(task)}
-      />
+        <PriorityList
+          tasks={priorities}
+          onToggle={(task) => void toggleTaskComplete(task)}
+        />
 
-      <section>
-        <p className="text-[11px] tracking-[0.18em] text-mute uppercase">Habits</p>
-        {data.habits.length === 0 ? (
-          <EmptyState
-            title="No habits yet"
-            body="Add one from Quick add, or finish onboarding to seed the defaults."
-          />
-        ) : (
-          data.habits.map((habit) => (
-            <HabitRow
-              key={habit.id}
-              habit={habit}
-              entry={entriesByHabit.get(habit.id) ?? null}
-              onTap={() => void tapHabit(habit.id)}
-            />
-          ))
-        )}
-      </section>
+        <section>
+          <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">Habits</p>
+          {data.habits.length === 0 ? (
+            <p className="mt-3 text-[15px] text-ink-muted">No habits yet. Add one from the plus button.</p>
+          ) : (
+            <div className="mt-1">
+              {data.habits.map((habit) => (
+                <HabitRow
+                  key={habit.id}
+                  habit={habit}
+                  entry={entriesByHabit.get(habit.id) ?? null}
+                  onTap={() => void tapHabit(habit.id)}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
 
       <PlanMyDaySheet userId={userId} data={data} />
       <PrayerDetailSheet
@@ -228,6 +256,6 @@ export function TodayScreen(props: { userId?: string }) {
         timezone={data.timezone}
         entries={data.prayers}
       />
-    </div>
+    </Screen>
   );
 }

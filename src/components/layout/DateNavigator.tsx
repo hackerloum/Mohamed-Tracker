@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import { addLocalDays, formatLocalDateHeading, todayLocalDate } from "@/core/dates";
 import type { LocalDate } from "@/core/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";

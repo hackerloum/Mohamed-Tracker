@@ -20,8 +20,9 @@ export function PrayerStrip({
 
   return (
     <section>
-      <p className="text-[11px] tracking-[0.18em] text-mute uppercase">Prayer</p>
-      <div className="mt-3 flex gap-2">
+      <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">Prayer</p>
+      <div className="relative mt-5 flex items-start">
+        <span className="absolute top-[7px] right-4 left-4 h-px bg-hairline" aria-hidden />
         {keys.map((key) => (
           <PrayerMark
             key={key}
@@ -53,7 +54,7 @@ function PrayerMark({
   return (
     <button
       type="button"
-      className="flex flex-1 flex-col items-center gap-2"
+      className="relative z-[1] flex flex-1 flex-col items-center gap-2.5 active:opacity-70"
       onPointerDown={() => {
         longPressRef.current = false;
         timerRef.current = setTimeout(() => {
@@ -69,8 +70,12 @@ function PrayerMark({
         if (timerRef.current) clearTimeout(timerRef.current);
       }}
     >
-      <span className={`h-8 w-[3px] rounded-full ${done ? "bg-bronze" : "bg-hairline"}`} />
-      <span className={`text-[10px] tracking-wide uppercase ${done ? "text-ivory" : "text-mute"}`}>
+      <span
+        className={`h-[15px] w-[15px] rounded-full border ${
+          done ? "border-accent bg-accent" : "border-ink-muted/50 bg-bg"
+        }`}
+      />
+      <span className={`text-[11px] tracking-wide ${done ? "text-ink" : "text-ink-muted"}`}>
         {label}
       </span>
     </button>

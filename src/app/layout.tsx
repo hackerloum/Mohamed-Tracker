@@ -35,18 +35,18 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F4F0E8" },
     { media: "(prefers-color-scheme: dark)", color: "#12110F" },
+    { media: "(prefers-color-scheme: light)", color: "#F3EFE6" },
   ],
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={geist.variable} suppressHydrationWarning>
-      <body className="min-h-dvh bg-bg font-sans text-ink antialiased">
+    <html lang="en" className={`${geist.variable} dark`} suppressHydrationWarning>
+      <body className="min-h-dvh bg-bg font-sans text-ink antialiased selection:bg-accent/25">
         <Providers>{children}</Providers>
       </body>
     </html>

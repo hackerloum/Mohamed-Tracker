@@ -1,38 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f4f0e8;
-  --bg-raised: #ebe6db;
-  --bg-overlay: #e4ddd0;
-  --ink: #1a1815;
-  --ink-muted: #5c574e;
-  --hairline: rgba(26, 24, 21, 0.12);
+  --bg: #12110f;
+  --bg-raised: #1a1815;
+  --bg-overlay: #221f1b;
+  --ink: #f3efe6;
+  --ink-muted: #9a9388;
+  --hairline: rgba(243, 239, 230, 0.1);
   --accent: #c4a574;
-  --accent-ink: #3d3224;
-  --danger: #8c3a2f;
+  --accent-ink: #1a1815;
+  --danger: #d97868;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --nav-height: 4.25rem;
+  --nav-height: 4.5rem;
   --atelier-bg: var(--bg);
   --atelier-text: var(--ink);
   --atelier-muted: var(--ink-muted);
   --atelier-accent: var(--accent);
   --atelier-hairline: var(--hairline);
   --atelier-ink-on-accent: var(--accent-ink);
-  color-scheme: light;
+  color-scheme: dark;
 }
 
-.dark {
-  --bg: #12110f;
-  --bg-raised: #1a1815;
-  --bg-overlay: #221f1b;
-  --ink: #f4f0e8;
-  --ink-muted: #a39c90;
-  --hairline: rgba(244, 240, 232, 0.1);
-  --accent: #c4a574;
-  --accent-ink: #f4f0e8;
-  --danger: #d97868;
-  color-scheme: dark;
+html:not(.dark) {
+  --bg: #f3efe6;
+  --bg-raised: #ebe6db;
+  --bg-overlay: #e2dbcf;
+  --ink: #1c1916;
+  --ink-muted: #6a645b;
+  --hairline: rgba(28, 25, 22, 0.12);
+  --accent: #9a7b4f;
+  --accent-ink: #f3efe6;
+  --danger: #8c3a2f;
+  color-scheme: light;
 }
 
 @theme inline {

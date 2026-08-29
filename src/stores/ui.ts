@@ -32,7 +32,7 @@ export const useUiStore = create<UiState>()(
     (set) => ({
       selectedDate: localDate(new Date(), DEFAULT_TIMEZONE),
       timezone: DEFAULT_TIMEZONE,
-      theme: "system",
+      theme: "dark",
       quickAddOpen: false,
       quickAddKind: "task",
       planSheetOpen: false,
@@ -49,7 +49,7 @@ export const useUiStore = create<UiState>()(
       closePrayerDetail: () => set({ prayerDetailKey: null }),
     }),
     {
-      name: "mohamed-ui",
+      name: "mohamed-ui-v2",
       partialize: (state) => ({
         theme: state.theme,
         timezone: state.timezone,

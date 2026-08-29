@@ -43,7 +43,7 @@ export function NavRail() {
         type="button"
         aria-label="Quick add"
         onClick={() => openQuickAdd()}
-        className="flex h-10 w-10 items-center justify-center rounded-full border border-accent text-accent"
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-ink"
       >
         <CirclePlus size={18} />
       </button>

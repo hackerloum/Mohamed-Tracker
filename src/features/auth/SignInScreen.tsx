@@ -23,25 +23,30 @@ export function SignInScreen() {
   }
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-end px-6 pb-16" style={{ paddingTop: "var(--safe-top)" }}>
-      <p className="text-sm uppercase tracking-[0.2em] text-accent">Private</p>
-      <h1 className="mt-3 text-4xl leading-tight text-ink">Mohamed</h1>
-      <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-muted">
-        Owner-only life OS. Google sign-in, then an owner claim, before any data is shown.
+    <main
+      className="mx-auto flex min-h-dvh max-w-lg flex-col justify-end px-6 pb-20"
+      style={{ paddingTop: "var(--safe-top)" }}
+    >
+      <p className="text-[12px] font-medium uppercase tracking-[0.28em] text-accent">Private</p>
+      <h1 className="mt-4 text-[52px] font-medium leading-[0.92] tracking-tight text-ink">
+        Mohamed
+      </h1>
+      <p className="mt-5 max-w-[16rem] text-[17px] leading-relaxed text-ink-muted">
+        Your day, in one place.
       </p>
-      <div className="accent-rule mt-8 w-20" />
+      <div className="mt-12 h-px w-16 bg-accent" />
       <div className="mt-10">
         {configured ? (
-          <Button onClick={() => void handleSignIn()} disabled={busy}>
+          <Button onClick={() => void handleSignIn()} disabled={busy} className="w-full">
             {busy ? "Opening Google…" : "Continue with Google"}
           </Button>
         ) : (
-          <p className="text-sm leading-relaxed text-ink-muted">
-            Firebase is not configured. Put your web config in <code className="text-ink">.env.local</code> and restart the
-            app.
+          <p className="text-[15px] leading-relaxed text-ink-muted">
+            Firebase is not configured yet. Add your web config to{" "}
+            <code className="text-ink">.env.local</code> and restart.
           </p>
         )}
-        {error ? <p className="mt-4 text-sm text-danger">{error}</p> : null}
+        {error ? <p className="mt-4 text-[14px] text-danger">{error}</p> : null}
       </div>
     </main>
   );

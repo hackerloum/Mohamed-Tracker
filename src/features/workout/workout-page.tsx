@@ -154,7 +154,7 @@ export function WorkoutPage() {
         ) : null}
         {error ? <p className="mt-3 text-sm text-danger">{error}</p> : null}
         <Button className="mt-6 w-full" disabled={busy || !minutes} onClick={() => void saveQuick()}>
-          {busy ? "Savingâ€¦" : "Log workout"}
+          {busy ? "Saving…" : "Log workout"}
         </Button>
       </section>
       <section className="px-5 pb-8">

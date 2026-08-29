@@ -15,23 +15,26 @@ export function HabitRow({
   const reduce = useReducedMotion();
   const count = entry?.count ?? 0;
   const done = entry?.completed ?? false;
+  const marks = Math.max(1, habit.targetCount);
 
   return (
     <button
       type="button"
       onClick={onTap}
-      className="flex w-full items-center justify-between border-t border-hairline py-3 text-left"
+      className="flex w-full items-center justify-between gap-4 border-t border-hairline py-3.5 text-left active:opacity-70"
     >
-      <span className={done ? "text-mute line-through" : "text-ivory"}>{habit.name}</span>
+      <span className={`text-[17px] ${done ? "text-ink-muted line-through decoration-hairline" : "text-ink"}`}>
+        {habit.name}
+      </span>
       <span className="flex items-center gap-1.5">
-        {Array.from({ length: habit.targetCount }, (_, index) => {
+        {Array.from({ length: marks }, (_, index) => {
           const filled = index < count;
           return (
             <motion.span
               key={index}
-              className={`h-2.5 w-2.5 rounded-full ${filled ? "bg-bronze" : "bg-hairline"}`}
-              animate={filled && !reduce ? { scale: [0.85, 1] } : undefined}
-              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className={`block h-2 w-2 rounded-full ${filled ? "bg-accent" : "bg-hairline"}`}
+              animate={filled && !reduce ? { scale: [0.75, 1] } : undefined}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             />
           );
         })}

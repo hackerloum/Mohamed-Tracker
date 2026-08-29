@@ -11,18 +11,20 @@ export function UpNext({
 }) {
   return (
     <section>
-      <p className="text-[11px] tracking-[0.18em] text-mute uppercase">Up next</p>
+      <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">Up next</p>
       {action ? (
         <button
           type="button"
           onClick={() => onAct(action)}
-          className="mt-3 w-full border-b border-bronze pb-3 text-left"
+          className="mt-3 w-full border-b border-accent/70 pb-4 text-left active:opacity-70"
         >
-          <p className="text-2xl font-medium tracking-tight text-ivory">{action.title}</p>
-          <p className="mt-1 text-sm text-mute">{action.reason}</p>
+          <p className="text-[26px] font-medium leading-tight tracking-tight text-ink">
+            {action.title}
+          </p>
+          <p className="mt-1.5 text-[14px] text-ink-muted">{action.reason}</p>
         </button>
       ) : (
-        <p className="mt-3 text-sm text-mute">Nothing queued. Add a habit or a task.</p>
+        <p className="mt-3 text-[15px] text-ink-muted">Nothing waiting. Plan the day or log something.</p>
       )}
     </section>
   );

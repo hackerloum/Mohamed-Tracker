@@ -75,7 +75,7 @@ export function MoneyDashboard() {
       ) : null}
 
       {loading ? (
-        <p className="text-[14px] text-[var(--atelier-muted)]">Loading moneyâ€¦</p>
+        <p className="text-[14px] text-ink-muted">Loading money…</p>
       ) : emptyToday ? (
         <MoneyEmpty
           title="No expenses logged today."

@@ -1,35 +1,53 @@
 import Link from "next/link";
 import { AppHeader } from "@/components/layout/AppHeader";
-import { Hairline } from "@/components/ui/Hairline";
 import { Screen } from "@/components/ui/Screen";
-import { ChevronRight } from "lucide-react";
 
-const links = [
-  { href: "/more/habits", label: "Habits" },
-  { href: "/more/goals", label: "Goals" },
-  { href: "/more/notifications", label: "Notifications" },
-  { href: "/more/settings", label: "Settings" },
-  { href: "/onboarding", label: "Onboarding" },
-  { href: "/study", label: "Study" },
-  { href: "/workout", label: "Workout" },
-  { href: "/search", label: "Search" },
+const groups = [
+  {
+    title: "Day",
+    links: [
+      { href: "/more/habits", label: "Habits" },
+      { href: "/more/goals", label: "Goals" },
+      { href: "/study", label: "Study" },
+      { href: "/workout", label: "Workout" },
+    ],
+  },
+  {
+    title: "System",
+    links: [
+      { href: "/more/notifications", label: "Notifications" },
+      { href: "/search", label: "Search" },
+      { href: "/more/settings", label: "Settings" },
+    ],
+  },
 ];
 
 export function MoreScreen() {
   return (
     <Screen>
       <AppHeader title="More" />
-      <ul>
-        {links.map((link) => (
-          <li key={link.href}>
-            <Link href={link.href} className="flex items-center justify-between py-3.5 text-[1.02rem] text-ink">
-              {link.label}
-              <ChevronRight size={16} className="text-ink-muted" />
-            </Link>
-            <Hairline />
-          </li>
+      <div className="flex flex-col gap-10 pt-2">
+        {groups.map((group) => (
+          <section key={group.title}>
+            <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">
+              {group.title}
+            </p>
+            <ul>
+              {group.links.map((link) => (
+                <li key={link.href} className="border-t border-hairline">
+                  <Link
+                    href={link.href}
+                    className="flex min-h-12 items-center justify-between text-[17px] text-ink active:opacity-70"
+                  >
+                    {link.label}
+                    <span className="text-ink-muted">›</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
     </Screen>
   );
 }
