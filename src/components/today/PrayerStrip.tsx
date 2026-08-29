@@ -17,12 +17,18 @@ export function PrayerStrip({
   const keys: PrayerKey[] = extrasEnabled
     ? [...CANONICAL_PRAYERS, ...EXTRA_PRAYERS]
     : [...CANONICAL_PRAYERS];
+  const done = keys.filter((key) => completedKeys.has(key)).length;
 
   return (
     <section>
-      <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">Prayer</p>
-      <div className="relative mt-5 flex items-start">
-        <span className="absolute top-[7px] right-4 left-4 h-px bg-hairline" aria-hidden />
+      <div className="flex items-baseline justify-between">
+        <p className="text-[13px] text-ink-muted">Prayer</p>
+        <p className="tabular text-[13px] text-ink-muted">
+          {done}/{keys.length}
+        </p>
+      </div>
+      <div className="relative mt-4 flex">
+        <span className="absolute top-[6px] right-3 left-3 h-px bg-hairline" aria-hidden />
         {keys.map((key) => (
           <PrayerMark
             key={key}
@@ -54,7 +60,7 @@ function PrayerMark({
   return (
     <button
       type="button"
-      className="relative z-[1] flex flex-1 flex-col items-center gap-2.5 active:opacity-70"
+      className="relative z-[1] flex flex-1 flex-col items-center gap-2 active:opacity-70"
       onPointerDown={() => {
         longPressRef.current = false;
         timerRef.current = setTimeout(() => {
@@ -70,14 +76,8 @@ function PrayerMark({
         if (timerRef.current) clearTimeout(timerRef.current);
       }}
     >
-      <span
-        className={`h-[15px] w-[15px] rounded-full border ${
-          done ? "border-accent bg-accent" : "border-ink-muted/50 bg-bg"
-        }`}
-      />
-      <span className={`text-[11px] tracking-wide ${done ? "text-ink" : "text-ink-muted"}`}>
-        {label}
-      </span>
+      <span className={`h-3 w-3 rounded-full ${done ? "bg-accent" : "bg-bg ring-1 ring-ink-muted/45"}`} />
+      <span className={`text-[11px] ${done ? "text-ink" : "text-ink-muted"}`}>{label}</span>
     </button>
   );
 }

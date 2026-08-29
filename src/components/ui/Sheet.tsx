@@ -24,9 +24,11 @@ export function Sheet({ open, onOpenChange, title, description, children }: Shee
     <Drawer.Root open={open} onOpenChange={onOpenChange}>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40" />
-        <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 flex flex-col rounded-t-lg bg-bg-raised pb-[env(safe-area-inset-bottom)] outline-none">
-          <div className="mx-auto mt-3 h-1 w-10 rounded-full bg-hairline" />
-          <Drawer.Title className="px-5 pb-2 pt-4 text-lg text-ink">{title}</Drawer.Title>
+        <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 flex flex-col rounded-t-[28px] bg-bg-raised pb-[env(safe-area-inset-bottom)] outline-none">
+          <div className="mx-auto mt-3 h-1 w-10 rounded-full bg-ink-muted/30" />
+          <Drawer.Title className="font-serif px-5 pb-2 pt-4 text-[26px] tracking-[-0.02em] text-ink">
+            {title}
+          </Drawer.Title>
           {description ? (
             <Drawer.Description className="px-5 pb-2 text-sm text-ink-muted">
               {description}

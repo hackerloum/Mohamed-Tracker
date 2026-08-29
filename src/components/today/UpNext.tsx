@@ -9,23 +9,22 @@ export function UpNext({
   action: NextAction | null;
   onAct: (action: NextAction) => void;
 }) {
+  if (!action) return null;
+
   return (
-    <section>
-      <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">Up next</p>
-      {action ? (
-        <button
-          type="button"
-          onClick={() => onAct(action)}
-          className="mt-3 w-full border-b border-accent/70 pb-4 text-left active:opacity-70"
-        >
-          <p className="text-[26px] font-medium leading-tight tracking-tight text-ink">
-            {action.title}
-          </p>
-          <p className="mt-1.5 text-[14px] text-ink-muted">{action.reason}</p>
-        </button>
-      ) : (
-        <p className="mt-3 text-[15px] text-ink-muted">Nothing waiting. Plan the day or log something.</p>
-      )}
-    </section>
+    <button
+      type="button"
+      onClick={() => onAct(action)}
+      className="flex w-full items-end justify-between gap-4 border-y border-hairline py-5 text-left active:opacity-70"
+    >
+      <div className="min-w-0">
+        <p className="text-[13px] text-ink-muted">Up next</p>
+        <p className="font-serif mt-1 text-[28px] leading-[1.05] tracking-[-0.02em] text-ink">
+          {action.title}
+        </p>
+        <p className="mt-1.5 text-[14px] text-ink-muted">{action.reason}</p>
+      </div>
+      <span className="mb-1 shrink-0 text-[14px] text-accent">Start</span>
+    </button>
   );
 }

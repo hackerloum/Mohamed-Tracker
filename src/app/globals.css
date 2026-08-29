@@ -1,36 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #12110f;
-  --bg-raised: #1a1815;
-  --bg-overlay: #221f1b;
-  --ink: #f3efe6;
-  --ink-muted: #9a9388;
-  --hairline: rgba(243, 239, 230, 0.1);
-  --accent: #c4a574;
-  --accent-ink: #1a1815;
-  --danger: #d97868;
+  --bg: #0e0d0b;
+  --bg-raised: #171613;
+  --bg-overlay: #201e1a;
+  --ink: #f0eadf;
+  --ink-muted: #8f877c;
+  --hairline: rgba(240, 234, 223, 0.09);
+  --accent: #b89563;
+  --accent-ink: #0e0d0b;
+  --danger: #c96b5c;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --nav-height: 4.5rem;
+  --nav-height: 4.35rem;
   --atelier-bg: var(--bg);
   --atelier-text: var(--ink);
   --atelier-muted: var(--ink-muted);
   --atelier-accent: var(--accent);
   --atelier-hairline: var(--hairline);
   --atelier-ink-on-accent: var(--accent-ink);
+  --atelier-raised: var(--bg-raised);
   color-scheme: dark;
 }
 
 html:not(.dark) {
-  --bg: #f3efe6;
-  --bg-raised: #ebe6db;
-  --bg-overlay: #e2dbcf;
-  --ink: #1c1916;
-  --ink-muted: #6a645b;
-  --hairline: rgba(28, 25, 22, 0.12);
-  --accent: #9a7b4f;
-  --accent-ink: #f3efe6;
+  --bg: #f2ebe3;
+  --bg-raised: #ebe3d8;
+  --bg-overlay: #e3d8cb;
+  --ink: #1b1814;
+  --ink-muted: #6d665c;
+  --hairline: rgba(27, 24, 20, 0.1);
+  --accent: #8d7044;
+  --accent-ink: #f2ebe3;
   --danger: #8c3a2f;
   color-scheme: light;
 }
@@ -51,6 +52,7 @@ html:not(.dark) {
   --color-bronze: var(--accent);
   --color-paper: var(--bg);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), "Iowan Old Style", "Palatino Linotype", serif;
 }
 
 html,
@@ -67,6 +69,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.app-canvas {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1200px 520px at 50% -10%, color-mix(in srgb, var(--accent) 11%, transparent), transparent 62%),
+    radial-gradient(800px 400px at 100% 100%, color-mix(in srgb, var(--accent) 5%, transparent), transparent 55%);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
 .tabular {
   font-variant-numeric: tabular-nums;
 }
@@ -79,11 +92,11 @@ body {
 .accent-rule {
   height: 1px;
   background: var(--accent);
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

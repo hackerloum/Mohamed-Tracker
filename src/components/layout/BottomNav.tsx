@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, List, MoreHorizontal, Plus, SunMedium, Wallet } from "lucide-react";
+import { BarChart3, List, MoreHorizontal, Plus, Sun, Wallet } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useUiStore } from "@/stores/ui";
 
 const tabs = [
-  { href: "/today", label: "Today", icon: SunMedium },
+  { href: "/today", label: "Today", icon: Sun },
   { href: "/log", label: "Log", icon: List },
   { href: "/money", label: "Money", icon: Wallet },
   { href: "/insights", label: "Insights", icon: BarChart3 },
@@ -21,42 +21,29 @@ export function isTabActive(pathname: string, href: string): boolean {
 export function BottomNav() {
   const pathname = usePathname();
   const openQuickAdd = useUiStore((s) => s.openQuickAdd);
-  const left = tabs.slice(0, 2);
-  const right = tabs.slice(2);
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-hairline bg-bg/92 backdrop-blur-md md:hidden"
+      className="fixed inset-x-0 bottom-0 z-30 bg-bg/90 backdrop-blur-xl md:hidden"
       style={{ paddingBottom: "var(--safe-bottom)" }}
     >
-      <ul className="grid h-[var(--nav-height)] grid-cols-6 items-end px-1 pb-1.5">
-        {left.map((tab) => (
-          <NavItem
-            key={tab.href}
-            href={tab.href}
-            label={tab.label}
-            icon={tab.icon}
-            active={isTabActive(pathname, tab.href)}
-          />
+      <div className="mx-3 mb-2 h-px bg-hairline" />
+      <ul className="grid h-[var(--nav-height)] grid-cols-6 items-center px-1">
+        {tabs.slice(0, 2).map((tab) => (
+          <NavItem key={tab.href} {...tab} active={isTabActive(pathname, tab.href)} />
         ))}
-        <li className="flex justify-center self-center">
+        <li className="flex justify-center">
           <button
             type="button"
             aria-label="Add"
             onClick={() => openQuickAdd()}
-            className="-mt-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_8px_24px_rgba(0,0,0,0.35)] active:scale-95"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-ink text-bg active:opacity-70"
           >
-            <Plus size={22} strokeWidth={2.2} />
+            <Plus size={18} strokeWidth={2.25} />
           </button>
         </li>
-        {right.map((tab) => (
-          <NavItem
-            key={tab.href}
-            href={tab.href}
-            label={tab.label}
-            icon={tab.icon}
-            active={isTabActive(pathname, tab.href)}
-          />
+        {tabs.slice(2).map((tab) => (
+          <NavItem key={tab.href} {...tab} active={isTabActive(pathname, tab.href)} />
         ))}
       </ul>
     </nav>
@@ -79,12 +66,12 @@ function NavItem({
       <Link
         href={href}
         className={cn(
-          "flex flex-col items-center gap-1 py-1",
-          active ? "text-ink" : "text-ink-muted",
+          "flex flex-col items-center gap-0.5 py-1",
+          active ? "text-ink" : "text-ink-muted/80",
         )}
       >
-        <Icon size={20} strokeWidth={active ? 2 : 1.6} />
-        <span className="text-[10px] tracking-[0.04em]">{label}</span>
+        <Icon size={19} strokeWidth={active ? 1.9 : 1.5} />
+        <span className="text-[10px]">{label}</span>
       </Link>
     </li>
   );

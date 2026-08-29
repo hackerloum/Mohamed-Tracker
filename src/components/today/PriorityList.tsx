@@ -5,17 +5,28 @@ import type { Task } from "@/core/types";
 export function PriorityList({
   tasks,
   onToggle,
+  onPlan,
 }: {
   tasks: Task[];
   onToggle: (task: Task) => void;
+  onPlan: () => void;
 }) {
   return (
     <section>
-      <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">
-        Priorities
-      </p>
+      <div className="flex items-baseline justify-between">
+        <p className="text-[13px] text-ink-muted">Priorities</p>
+        <button type="button" onClick={onPlan} className="text-[13px] text-accent active:opacity-70">
+          Plan
+        </button>
+      </div>
       {tasks.length === 0 ? (
-        <p className="mt-3 text-[15px] text-ink-muted">No top three yet.</p>
+        <button
+          type="button"
+          onClick={onPlan}
+          className="mt-3 w-full text-left text-[16px] text-ink-muted active:opacity-70"
+        >
+          Choose the three things that matter today.
+        </button>
       ) : (
         <ol className="mt-1">
           {tasks.map((task, index) => (
@@ -23,11 +34,11 @@ export function PriorityList({
               <button
                 type="button"
                 onClick={() => onToggle(task)}
-                className="flex w-full items-baseline gap-4 border-t border-hairline py-3.5 text-left active:opacity-70"
+                className="flex w-full items-baseline gap-3 py-3 text-left active:opacity-70"
               >
-                <span className="tabular w-4 text-[13px] text-accent">{index + 1}</span>
+                <span className="font-serif tabular w-5 text-[18px] text-accent/80">{index + 1}</span>
                 <span
-                  className={`flex-1 text-[17px] ${
+                  className={`flex-1 text-[17px] leading-snug ${
                     task.completed ? "text-ink-muted line-through decoration-hairline" : "text-ink"
                   }`}
                 >

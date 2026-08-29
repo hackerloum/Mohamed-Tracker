@@ -25,7 +25,7 @@ export function NumericKeypad({
               type="button"
               aria-label="Delete"
               onClick={() => onChange(backspaceKeypad(value))}
-              className="flex h-[64px] items-center justify-center rounded-2xl text-[var(--atelier-text)] active:bg-[var(--atelier-raised)]"
+              className="flex h-[64px] items-center justify-center rounded-2xl text-ink active:bg-bg-raised"
             >
               <Delete size={26} strokeWidth={1.5} />
             </button>
@@ -36,7 +36,7 @@ export function NumericKeypad({
             key={key}
             type="button"
             onClick={() => onChange(appendKeypadDigit(value, key))}
-            className="h-[64px] rounded-2xl font-mono text-[28px] tabular-nums text-[var(--atelier-text)] active:bg-[var(--atelier-raised)]"
+            className="font-serif h-[64px] rounded-2xl text-[28px] tabular-nums text-ink active:bg-bg-raised"
           >
             {key}
           </button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { isFirebaseConfigured } from "@/lib/firebase/env";
 import { signInWithGoogle } from "@/services/auth";
 import { Button } from "@/components/ui/Button";
@@ -9,6 +9,15 @@ export function SignInScreen() {
   const configured = isFirebaseConfigured();
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const today = useMemo(
+    () =>
+      new Intl.DateTimeFormat("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+      }).format(new Date()),
+    [],
+  );
 
   async function handleSignIn() {
     setBusy(true);
@@ -24,29 +33,31 @@ export function SignInScreen() {
 
   return (
     <main
-      className="mx-auto flex min-h-dvh max-w-lg flex-col justify-end px-6 pb-20"
-      style={{ paddingTop: "var(--safe-top)" }}
+      className="app-canvas mx-auto flex min-h-dvh max-w-lg flex-col justify-between px-6 pb-16"
+      style={{ paddingTop: "calc(var(--safe-top) + 2.5rem)" }}
     >
-      <p className="text-[12px] font-medium uppercase tracking-[0.28em] text-accent">Private</p>
-      <h1 className="mt-4 text-[52px] font-medium leading-[0.92] tracking-tight text-ink">
-        Mohamed
-      </h1>
-      <p className="mt-5 max-w-[16rem] text-[17px] leading-relaxed text-ink-muted">
-        Your day, in one place.
-      </p>
-      <div className="mt-12 h-px w-16 bg-accent" />
-      <div className="mt-10">
-        {configured ? (
-          <Button onClick={() => void handleSignIn()} disabled={busy} className="w-full">
-            {busy ? "Opening Google…" : "Continue with Google"}
-          </Button>
-        ) : (
-          <p className="text-[15px] leading-relaxed text-ink-muted">
-            Firebase is not configured yet. Add your web config to{" "}
-            <code className="text-ink">.env.local</code> and restart.
-          </p>
-        )}
-        {error ? <p className="mt-4 text-[14px] text-danger">{error}</p> : null}
+      <div>
+        <p className="text-[14px] text-ink-muted">{today}</p>
+        <h1 className="font-serif mt-6 text-[64px] leading-[0.88] tracking-[-0.03em] text-ink">
+          Mohamed
+        </h1>
+      </div>
+      <div>
+        <p className="max-w-[15rem] text-[18px] leading-relaxed text-ink-muted">
+          What should I do today, what have I done, how am I doing.
+        </p>
+        <div className="mt-10">
+          {configured ? (
+            <Button onClick={() => void handleSignIn()} disabled={busy} className="w-full">
+              {busy ? "Opening Google…" : "Continue with Google"}
+            </Button>
+          ) : (
+            <p className="text-[15px] leading-relaxed text-ink-muted">
+              Add Firebase config in <code className="text-ink">.env.local</code> and restart.
+            </p>
+          )}
+          {error ? <p className="mt-4 text-[14px] text-danger">{error}</p> : null}
+        </div>
       </div>
     </main>
   );

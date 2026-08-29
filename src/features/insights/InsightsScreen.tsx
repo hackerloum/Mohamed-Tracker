@@ -11,7 +11,6 @@ import {
   moneyLabel,
 } from "@/components/insights/visuals";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { Hairline } from "@/components/ui/Hairline";
 import { Screen } from "@/components/ui/Screen";
 import type { InsightsRange } from "@/core/engines/insights";
 import { formatTzs } from "@/core/money/integer";
@@ -34,31 +33,28 @@ export function InsightsScreen() {
   return (
     <Screen>
       <AppHeader title="Insights" />
-      <nav className="mb-4 flex gap-4 text-sm text-ink-muted">
-        <Link href="/insights/week" className="underline-offset-4 hover:text-ink">
-          Week
+      <nav className="mb-5 flex gap-5 text-[14px] text-ink-muted">
+        <Link href="/insights/week" className="hover:text-ink">
+          Review
         </Link>
-        <Link href="/insights/calendar" className="underline-offset-4 hover:text-ink">
+        <Link href="/insights/calendar" className="hover:text-ink">
           Calendar
         </Link>
       </nav>
-      <div className="flex gap-3 pb-4">
+      <div className="mb-6 flex gap-1 rounded-full bg-bg-raised p-1">
         {PERIODS.map((item) => (
           <button
             key={item.id}
             type="button"
             onClick={() => setRange(item.id)}
-            className={`text-[13px] ${
-              range === item.id
-                ? "text-accent underline decoration-accent underline-offset-4"
-                : "text-ink-muted"
+            className={`flex-1 rounded-full py-1.5 text-[13px] ${
+              range === item.id ? "bg-bg-overlay text-ink" : "text-ink-muted"
             }`}
           >
             {item.label}
           </button>
         ))}
       </div>
-      <Hairline accent />
 
       {error ? <p className="mt-4 text-[14px] text-danger">{error}</p> : null}
       {loading ? (

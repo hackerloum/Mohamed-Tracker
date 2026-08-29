@@ -1,11 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Instrument_Serif } from "next/font/google";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist-sans",
+});
+
+const instrument = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-instrument",
 });
 
 const APP_NAME = "Mohamed";
@@ -35,8 +41,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#12110F" },
-    { media: "(prefers-color-scheme: light)", color: "#F3EFE6" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e0d0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f2ebe3" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -45,8 +51,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} dark`} suppressHydrationWarning>
-      <body className="min-h-dvh bg-bg font-sans text-ink antialiased selection:bg-accent/25">
+    <html lang="en" className={`${geist.variable} ${instrument.variable} dark`} suppressHydrationWarning>
+      <body className="app-canvas min-h-dvh bg-bg font-sans text-ink antialiased selection:bg-accent/25">
         <Providers>{children}</Providers>
       </body>
     </html>

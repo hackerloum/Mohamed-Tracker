@@ -15,8 +15,10 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Screen } from "@/components/ui/Screen";
 import { PlanMyDaySheet } from "@/features/today/PlanMyDaySheet";
 import { PrayerDetailSheet } from "@/features/today/PrayerDetailSheet";
+import { formatTzs } from "@/core/money/integer";
 import { useTodayData } from "@/hooks/useTodayData";
 import { useAuth } from "@/hooks/useAuth";
+import { useMoneyDashboard } from "@/hooks/use-money-dashboard";
 import { cacheDayScore } from "@/services/dayService";
 import { completeHabitTap, nextHabitEntry } from "@/services/habitService";
 import { completePrayer } from "@/services/prayerService";
@@ -27,6 +29,7 @@ export function TodayScreen(props: { userId?: string }) {
   const auth = useAuth();
   const userId = props.userId ?? auth.user?.uid ?? "";
   const data = useTodayData(userId || null);
+  const { summary: moneyToday } = useMoneyDashboard("today");
   const openPlan = useUiStore((state) => state.openPlanSheet);
   const openPrayerDetail = useUiStore((state) => state.openPrayerDetail);
   const [optimistic, setOptimistic] = useState<Record<string, HabitEntry>>({});
@@ -196,17 +199,7 @@ export function TodayScreen(props: { userId?: string }) {
 
   return (
     <Screen>
-      <div className="flex flex-col gap-11">
-        <div className="flex items-center justify-end">
-          <button
-            type="button"
-            onClick={openPlan}
-            className="text-[14px] text-accent active:opacity-70"
-          >
-            Plan my day
-          </button>
-        </div>
-
+      <div className="flex flex-col gap-9">
         <DayDial
           score={score.score}
           dateLabel={dateLabel}
@@ -214,6 +207,9 @@ export function TodayScreen(props: { userId?: string }) {
           greeting={greeting}
           completed={completed}
           total={total}
+          spentLabel={
+            moneyToday.spent > 0 ? `${formatTzs(moneyToday.spent, { withCode: true })} spent` : null
+          }
         />
 
         <UpNext action={action} onAct={(item) => void handleUpNext(item)} />
@@ -228,14 +224,15 @@ export function TodayScreen(props: { userId?: string }) {
         <PriorityList
           tasks={priorities}
           onToggle={(task) => void toggleTaskComplete(task)}
+          onPlan={openPlan}
         />
 
         <section>
-          <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">Habits</p>
+          <p className="text-[13px] text-ink-muted">Habits</p>
           {data.habits.length === 0 ? (
-            <p className="mt-3 text-[15px] text-ink-muted">No habits yet. Add one from the plus button.</p>
+            <p className="mt-3 text-[16px] text-ink-muted">No habits yet. Add one from +.</p>
           ) : (
-            <div className="mt-1">
+            <div className="mt-1 divide-y divide-hairline">
               {data.habits.map((habit) => (
                 <HabitRow
                   key={habit.id}

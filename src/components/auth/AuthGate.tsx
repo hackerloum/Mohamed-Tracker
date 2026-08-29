@@ -92,11 +92,8 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
   if (status === "loading") {
     return (
-      <div className="flex min-h-dvh items-end bg-bg px-6 pb-20">
-        <div>
-          <p className="text-[12px] font-medium uppercase tracking-[0.28em] text-ink-muted">Mohamed</p>
-          <div className="mt-3 h-px w-12 bg-accent" />
-        </div>
+      <div className="app-canvas flex min-h-dvh items-end px-6 pb-20">
+        <p className="font-serif text-[42px] tracking-[-0.03em] text-ink">Mohamed</p>
       </div>
     );
   }
@@ -104,10 +101,8 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   if (status === "unauthorized") {
     return (
       <div className="mx-auto flex min-h-dvh max-w-md flex-col justify-end px-6 pb-16">
-        <p className="text-[12px] font-medium uppercase tracking-[0.22em] text-ink-muted">
-          Restricted
-        </p>
-        <h1 className="mt-3 text-[34px] leading-tight tracking-tight text-ink">
+        <p className="text-[13px] text-ink-muted">Restricted</p>
+        <h1 className="font-serif mt-3 text-[40px] leading-[0.95] tracking-[-0.03em] text-ink">
           This account can’t open the app.
         </h1>
         <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">

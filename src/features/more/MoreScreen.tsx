@@ -29,9 +29,7 @@ export function MoreScreen() {
       <div className="flex flex-col gap-10 pt-2">
         {groups.map((group) => (
           <section key={group.title}>
-            <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.2em] text-ink-muted">
-              {group.title}
-            </p>
+            <p className="mb-2 text-[13px] text-ink-muted">{group.title}</p>
             <ul>
               {group.links.map((link) => (
                 <li key={link.href} className="border-t border-hairline">

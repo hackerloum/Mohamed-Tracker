@@ -53,16 +53,14 @@ export function MoneyDashboard() {
 
   return (
     <>
-      <div className="flex gap-2 pb-6">
+      <div className="mb-7 grid grid-cols-3 rounded-full bg-bg-raised p-1">
         {PERIODS.map((item) => (
           <button
             key={item.id}
             type="button"
             onClick={() => setPeriod(item.id)}
-            className={`text-[13px] ${
-              period === item.id
-                ? "text-[var(--atelier-accent)] underline decoration-[var(--atelier-accent)] underline-offset-4"
-                : "text-[var(--atelier-muted)]"
+            className={`rounded-full py-2 text-[13px] ${
+              period === item.id ? "bg-bg-overlay text-ink" : "text-ink-muted"
             }`}
           >
             {item.label}
@@ -85,51 +83,39 @@ export function MoneyDashboard() {
       ) : (
         <>
           <section className="pb-8">
-            <p className="text-[13px] uppercase tracking-[0.16em] text-[var(--atelier-muted)]">
-              Spent
-            </p>
-            <p className="mt-2 font-mono text-[40px] leading-none tabular-nums text-[var(--atelier-text)]">
+            <p className="text-[13px] text-ink-muted">Spent</p>
+            <p className="font-serif mt-2 text-[44px] leading-none tracking-[-0.03em] tabular-nums text-ink">
               {formatTzs(summary.spent, { withCode: true })}
             </p>
-            <dl className="mt-5 space-y-2 text-[15px]">
+            <dl className="mt-6 space-y-2.5 text-[15px]">
               <div className="flex justify-between">
-                <dt className="text-[var(--atelier-muted)]">Income this month</dt>
-                <dd className="font-mono tabular-nums text-[var(--atelier-text)]">
-                  {formatTzs(monthSummary.income, { withCode: true })}
-                </dd>
+                <dt className="text-ink-muted">Income this month</dt>
+                <dd className="tabular text-ink">{formatTzs(monthSummary.income, { withCode: true })}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-[var(--atelier-muted)]">Net this month</dt>
-                <dd className="font-mono tabular-nums text-[var(--atelier-text)]">
-                  {formatTzs(monthSummary.net, { withCode: true })}
-                </dd>
+                <dt className="text-ink-muted">Net this month</dt>
+                <dd className="tabular text-ink">{formatTzs(monthSummary.net, { withCode: true })}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-[var(--atelier-muted)]">Average daily</dt>
-                <dd className="font-mono tabular-nums text-[var(--atelier-text)]">
-                  {formatTzs(averageDaily, { withCode: true })}
-                </dd>
+                <dt className="text-ink-muted">Average daily</dt>
+                <dd className="tabular text-ink">{formatTzs(averageDaily, { withCode: true })}</dd>
               </div>
             </dl>
           </section>
 
           <section className="pb-8">
-            <h2 className="mb-2 text-[13px] uppercase tracking-[0.16em] text-[var(--atelier-muted)]">
-              Biggest expense
-            </h2>
+            <h2 className="mb-2 text-[13px] text-ink-muted">Biggest expense</h2>
             {biggest ? (
-              <p className="text-[16px] text-[var(--atelier-text)]">
+              <p className="text-[16px] text-ink">
                 {formatTzs(biggest.amount, { withCode: true })}
-                <span className="text-[var(--atelier-muted)]">
+                <span className="text-ink-muted">
                   {" "}
-                  Â· {categoryNames.get(biggest.categoryId) ?? "Expense"}
-                  {biggest.note ? ` Â· ${biggest.note}` : ""}
+                  · {categoryNames.get(biggest.categoryId) ?? "Expense"}
+                  {biggest.note ? ` · ${biggest.note}` : ""}
                 </span>
               </p>
             ) : (
-              <p className="text-[15px] text-[var(--atelier-muted)]">
-                No expenses in this period.
-              </p>
+              <p className="text-[15px] text-ink-muted">No expenses in this period.</p>
             )}
           </section>
 

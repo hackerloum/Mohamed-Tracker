@@ -21,7 +21,7 @@ export function HabitRow({
     <button
       type="button"
       onClick={onTap}
-      className="flex w-full items-center justify-between gap-4 border-t border-hairline py-3.5 text-left active:opacity-70"
+      className="flex w-full items-center justify-between gap-4 py-3 text-left active:opacity-70"
     >
       <span className={`text-[17px] ${done ? "text-ink-muted line-through decoration-hairline" : "text-ink"}`}>
         {habit.name}
@@ -32,9 +32,9 @@ export function HabitRow({
           return (
             <motion.span
               key={index}
-              className={`block h-2 w-2 rounded-full ${filled ? "bg-accent" : "bg-hairline"}`}
-              animate={filled && !reduce ? { scale: [0.75, 1] } : undefined}
-              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className={`block h-[7px] w-[7px] rounded-full ${filled ? "bg-accent" : "bg-hairline"}`}
+              animate={filled && !reduce ? { scale: [0.7, 1] } : undefined}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             />
           );
         })}

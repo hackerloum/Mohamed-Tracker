@@ -32,7 +32,7 @@ export function Button({
     <button
       type={type}
       className={cn(
-        "inline-flex min-h-11 items-center justify-center gap-2 rounded-[4px] px-5 py-2.5 text-[15px] tracking-[0.01em] transition-opacity duration-150 active:opacity-70",
+        "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 py-3 text-[15px] transition-opacity duration-150 active:opacity-70",
         styles[resolved],
         className,
       )}
